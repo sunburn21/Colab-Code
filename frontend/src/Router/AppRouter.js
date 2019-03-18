@@ -1,11 +1,14 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
+import createBrowserHistory from "history/createBrowserHistory";
+
 
 import { Home, Header, RegisterForm } from 'Components'
 
+export const history = createBrowserHistory();
 const AppRouter = () => {
     return (
-        <BrowserRouter>
+        <Router history={history}>
             <div>
                 <Header />
                 <Switch>
@@ -13,7 +16,7 @@ const AppRouter = () => {
                     <Route path="/register" component={RegisterForm} />
                 </Switch>
             </div>
-        </BrowserRouter>
+        </Router>
     )
 }
 

@@ -1,8 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import Button from 'react-bootstrap/Button';
-import { colors } from 'Utilities';
 import styled, { createGlobalStyle } from 'styled-components';
 import axios from 'axios';
+import { connect } from 'react-redux';
+
+import { colors } from 'Utilities';
+import { history } from '../Router/AppRouter'
+import { login } from '../actions/auth'
 
 const GlobalStyle = createGlobalStyle`
     body{
@@ -32,7 +36,10 @@ class LoginForm extends Component {
         const user = { ...this.state };
         axios.post('http://localhost:3001/login/', { ...user })
             .then((res) => {
-                console.log(res.data);
+                console.log(res.data._id);
+                this.props.dispatch(login(res.data));
+                history.push('/');
+                this.props.onToggle();
             })
     }
     render() {
@@ -50,7 +57,10 @@ class LoginForm extends Component {
     }
 }
 
-export default LoginForm;
+export default connect()(LoginForm);
+
+
+//Styles
 const FormHeading = styled.h2`
                 text-align:center;
     color: ${colors.secondary_bg};

@@ -32,7 +32,14 @@ router.route('/register')
 
 router.route('/login')
   .post(passport.authenticate('local'), (req, res) => {
-    console.log(res.user);
+    res.send(req.user);
+    //console.log(res.locals.user);
+  })
+
+router.route('/logout')
+  .get((req, res) => {
+    req.logOut();
+    res.status(200).send();
   })
 
 module.exports = router;

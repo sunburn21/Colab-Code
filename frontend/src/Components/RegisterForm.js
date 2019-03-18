@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
+import { history } from '../Router/AppRouter'
 
 import { colors } from 'Utilities';
 
@@ -36,6 +37,7 @@ class RegisterForm extends Component {
         const user = { ...this.state };
         axios.post('http://localhost:3001/register/', { ...user })
             .then((res) => {
+                history.push('/');
                 console.log(res.data);
             })
     }

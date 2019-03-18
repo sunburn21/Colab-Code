@@ -19,7 +19,7 @@ const Login = () => {
                             </LoginBtn>
                         </Fragment>
                         <Modal large on={on} onToggle={onToggle}>
-                            <LoginForm />
+                            <LoginForm onToggle={onToggle} />
                         </Modal>
                     </Fragment>
                 )}

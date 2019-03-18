@@ -6,12 +6,21 @@ import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container'
 //import { TiSocialInstagramCircular } from 'react-icons/ti'
 import Button from 'react-bootstrap/Button';
+import { connect } from 'react-redux';
+import axios from 'axios';
+
+import { logout } from '../actions/auth';
 import { colors } from 'Utilities'
 import Login from './Login';
 
 class Header extends Component {
     state = {}
-
+    onLogoutClick = () => {
+        axios.get('http://localhost:3001/logout/')
+            .then(() => {
+                this.props.dispatch(logout());
+            })
+    }
     render() {
         return (
             <NavWrapper sticky="top" >
@@ -29,14 +38,24 @@ class Header extends Component {
                         </Navbar.Brand>
                     </Nav.Item>
                     <Nav pullRight>
-                        <Nav.Item>
-                            <Login />
-                            <NavLink to='/register'>
-                                <SignUpBtn size='sm' >
-                                    SIGN UP!
-                            </SignUpBtn>
-                            </NavLink>
-                        </Nav.Item>
+                        {
+
+                            this.props.user.id
+                                ? (
+                                    <SignUpBtn onClick={this.onLogoutClick}>
+                                        LOGOUT
+                                    </SignUpBtn>
+                                )
+                                : (<Nav.Item>
+                                    <Login />
+                                    <NavLink to='/register'>
+                                        <SignUpBtn size='sm' >
+                                            SIGN UP!
+                                        </SignUpBtn>
+                                    </NavLink>
+                                </Nav.Item>)
+
+                        }
                     </Nav>
                 </Container>
             </NavWrapper >
@@ -45,7 +64,13 @@ class Header extends Component {
     }
 }
 
-export default Header;
+const mapStateToProps = (state, props) => {
+    return ({
+        user: state.auth
+    })
+}
+
+export default connect(mapStateToProps)(Header);
 
 const SignUpBtn = styled(Button)`
 margin-left: 2px;

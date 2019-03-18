@@ -1,8 +1,12 @@
 import React, { Component, Fragment } from 'react';
-//import './App.css';
-import AppRouter from './Router/AppRouter'
+import { Provider } from 'react-redux';
 import { createGlobalStyle } from 'styled-components'
+
+import AppRouter from './Router/AppRouter'
+import configureStore from './store/configureStore';
 import { colors } from "Utilities"
+
+const store = configureStore();
 const GlobalStyle = createGlobalStyle`
   html{
     height:100%;
@@ -23,7 +27,9 @@ class App extends Component {
     return (
       <Fragment>
         <GlobalStyle />
-        <AppRouter />
+        <Provider store={store}>
+          <AppRouter />
+        </Provider>
       </Fragment>
     );
   }
