@@ -41,6 +41,15 @@ class RegisterForm extends Component {
                 console.log(res.data);
             })
     }
+    // onfbLoginClick = (e) => {
+    //     e.preventDefault();
+    //     window.location.replace('http://localhost:3001/auth/facebook/');
+    //     // axios.get('http://localhost:3001/auth/facebook/')
+    //     //     .then((res) => {
+    //     //         history.push('/');
+    //     //         console.log(res.data);
+    //     //     })
+    // }
 
     render() {
         return (
@@ -65,6 +74,11 @@ class RegisterForm extends Component {
                                         SUBMIT
                                     </SubmitBtn>
                                 </div>
+                                {/* <div>
+                                    <SubmitBtn onClick={this.onfbLoginClick} >
+                                        LOGIN WITH FACEBOOK
+                                    </SubmitBtn>
+                                </div> */}
                             </InputContainer>
                         </Col>
                     </Row>

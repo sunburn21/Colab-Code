@@ -3,7 +3,7 @@ import { Router, Route, Switch } from 'react-router-dom';
 import createBrowserHistory from "history/createBrowserHistory";
 
 
-import { Home, Header, RegisterForm } from 'Components'
+import { Home, Header, RegisterForm, Task } from 'Components'
 
 export const history = createBrowserHistory();
 const AppRouter = () => {
@@ -14,6 +14,7 @@ const AppRouter = () => {
                 <Switch>
                     <Route path="/" component={Home} exact={true} />
                     <Route path="/register" component={RegisterForm} />
+                    <Route path="/task/:id" component={Task} />
                 </Switch>
             </div>
         </Router>

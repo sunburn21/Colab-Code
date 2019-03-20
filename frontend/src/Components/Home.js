@@ -1,23 +1,34 @@
-import React, { Fragment } from 'react'
-import { Toggle } from 'Utilities';
-import { Modal } from 'Elements';
-const Home = () => {
-    return (
-        <div><h1>You are already home;</h1>
-            <Toggle>
-                {({ on, onToggle }) => (
-                    <Fragment>
-                        <button onClick={onToggle}>
-                            CLICKME!
-                        </button>
-                        <Modal on={on} onToggle={onToggle}>
-                            <h1>HIIIIIIIIIII</h1>
-                        </Modal>
-                    </Fragment>
-                )}
-            </Toggle>
-        </div>
-    )
+import React, { Fragment, Component } from 'react'
+import { connect } from 'react-redux';
+import Button from 'react-bootstrap/Button';
+import { history } from '../Router/AppRouter';
+import axios from 'axios';
+class Home extends Component {
+    state = {}
+    onNewTask = () => {
+        axios.get('http://localhost:3001/createTask/')
+            .then((res) => {
+                history.push(`/task/${res.data._id}`);
+            })
+    }
+    render() {
+        return (
+            <div>
+                <h1>This is Home!</h1>
+                {
+                    this.props.user.id
+                    &&
+                    (<Button onClick={this.onNewTask}>
+                        New Task
+                    </Button>)
+                }
+            </div>
+        )
+    }
 }
 
-export default Home;
+const mapStateToProps = (state, props) => ({
+    user: state.auth
+})
+
+export default connect(mapStateToProps)(Home);
